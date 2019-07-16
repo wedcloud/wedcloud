@@ -8,6 +8,7 @@ import org.apache.ibatis.session.Configuration;
 import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.google.common.base.CaseFormat;
 
 /**
  * @ClassName SimpleUpdateExtendedLanguageDriver
@@ -30,8 +31,8 @@ public class SimpleUpdateExtendedLanguageDriver extends XMLLanguageDriver implem
 
       for (Field field : parameterType.getDeclaredFields()) {
         String temp = "<if test=\"__field != null\">__column=#{__field},</if>";
-        ss.append(temp.replaceAll("__field", field.getName())
-            .replaceAll("__column",  field.getName()));
+        ss.append(temp.replaceAll("__field", field.getName()).replaceAll("__column",
+            CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName())));
       }
 
       ss.deleteCharAt(ss.lastIndexOf(","));
