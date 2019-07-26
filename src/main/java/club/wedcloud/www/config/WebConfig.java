@@ -1,8 +1,5 @@
 package club.wedcloud.www.config;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -101,6 +101,9 @@ public class WebConfig implements WebMvcConfigurer {
     // TODO Auto-generated method stub
   }
 
+  /**
+   * 消息转换器
+   */
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     // TODO Auto-generated method stub
@@ -108,13 +111,10 @@ public class WebConfig implements WebMvcConfigurer {
     FastJsonConfig config = new FastJsonConfig();
     config.setDateFormat("yyyy-MM-dd");
     config.setCharset(Charset.forName("UTF-8"));
-    config.setSerializerFeatures(
-        SerializerFeature.WriteMapNullValue,
-        SerializerFeature.PrettyFormat,
-        SerializerFeature.WriteNullListAsEmpty,
-        SerializerFeature.WriteNullStringAsEmpty,
-        SerializerFeature.WriteNullNumberAsZero
-    );
+    // 修改配置 将返回内容过滤
+    config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,
+        SerializerFeature.PrettyFormat, SerializerFeature.WriteNullListAsEmpty,
+        SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero);
     converter.setFastJsonConfig(config);
     List<MediaType> supportedMediaTypes = new ArrayList<>();
     supportedMediaTypes.add(MediaType.APPLICATION_JSON);
