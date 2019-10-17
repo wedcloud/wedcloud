@@ -2,6 +2,8 @@ package club.wedcloud.www.controller;
 
 import club.wedcloud.www.dao.Album;
 import club.wedcloud.www.mapper.AlbumMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,17 @@ public class AlbumController {
   @Autowired
   private AlbumMapper mapper;
 
+  Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
   @GetMapping("/albumlist")
   public ResponseEntity<List<Album>> getAlbumList(
           @RequestParam(value = "albumName", defaultValue = "-1", required = false) String albumName) {
+    logger.debug("debug");
+    logger.info("info");
+    logger.warn("warn");
+    logger.error("error");
+
     return ResponseEntity.ok(mapper.findAll(albumName));
   }
 
