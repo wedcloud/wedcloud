@@ -2,6 +2,8 @@ package club.wedcloud.www.controller;
 
 import club.wedcloud.www.dao.Album;
 import club.wedcloud.www.mapper.AlbumMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "相簿管理")
 @RestController
 @RequestMapping("/v1")
 public class AlbumController {
@@ -20,6 +23,7 @@ public class AlbumController {
   Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
+  @ApiOperation(value = "相簿列表查询")
   @GetMapping("/albumlist")
   public ResponseEntity<List<Album>> getAlbumList(
           @RequestParam(value = "albumName", defaultValue = "-1", required = false) String albumName) {
@@ -31,11 +35,13 @@ public class AlbumController {
     return ResponseEntity.ok(mapper.findAll(albumName));
   }
 
+  @ApiOperation(value = "相簿详情查询")
   @GetMapping("/album/{id}")
   public ResponseEntity<Album> getAlbum(@PathVariable("id") Integer id) {
     return ResponseEntity.ok(mapper.getAlbum(id));
   }
 
+  @ApiOperation(value = "新增相簿")
   @PostMapping("/album")
   public ResponseEntity<String> insertAlbum(@RequestBody Album album) {
     try {
@@ -49,6 +55,7 @@ public class AlbumController {
     }
   }
 
+  @ApiOperation(value = "修改相簿")
   @PutMapping("/album/{id}")
   public ResponseEntity<String> updateAlbum(@PathVariable("id") Integer id,
                                             @RequestBody Album album) {
@@ -64,6 +71,7 @@ public class AlbumController {
     }
   }
 
+  @ApiOperation("删除相簿")
   @DeleteMapping("/album/{id}")
   public ResponseEntity<String> deleteAlbum(@PathVariable("id") Integer id) {
     try {
