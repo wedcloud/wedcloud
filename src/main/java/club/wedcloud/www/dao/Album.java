@@ -1,74 +1,31 @@
 package club.wedcloud.www.dao;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 /**
  * 
  * @author xuhb
  * @Description Album
  * @time 2019年7月17日
  */
+@Data
+@ApiModel(description = "相簿实体")
 public class Album {
+  @ApiModelProperty("相簿编号")
   private Integer id;
+  @ApiModelProperty("相簿名称")
   private String albumName;
+  @ApiModelProperty("相簿显示图像")
   private String imgurl;
+  @ApiModelProperty("相簿状态")
   private String status;
+  @ApiModelProperty("创建时间")
   private String createdAt;
+  @ApiModelProperty("修改时间")
   private String modifiedAt;
+  @ApiModelProperty("删除时间")
   private transient String deletedAt;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getAlbumName() {
-    return albumName;
-  }
-
-  public void setAlbumName(String albumName) {
-    this.albumName = albumName;
-  }
-
-  public String getImgurl() {
-    return imgurl;
-  }
-
-  public void setImgurl(String imgurl) {
-    this.imgurl = imgurl;
-  }
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public String getModifiedAt() {
-    return modifiedAt;
-  }
-
-  public void setModifiedAt(String modifiedAt) {
-    this.modifiedAt = modifiedAt;
-  }
-
-  public String getDeletedAt() {
-    return deletedAt;
-  }
-
-  public void setDeletedAt(String deletedAt) {
-    this.deletedAt = deletedAt;
-  }
-
 }
