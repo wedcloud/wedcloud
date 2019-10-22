@@ -13,7 +13,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
-
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +92,9 @@ public class WebConfig implements WebMvcConfigurer {
     // TODO Auto-generated method stub
   }
 
+  /**
+   * 消息转换器
+   */
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     // TODO Auto-generated method stub
@@ -100,13 +102,10 @@ public class WebConfig implements WebMvcConfigurer {
     FastJsonConfig config = new FastJsonConfig();
     config.setDateFormat("yyyy-MM-dd");
     config.setCharset(Charset.forName("UTF-8"));
-    config.setSerializerFeatures(
-        SerializerFeature.WriteMapNullValue,
-        SerializerFeature.PrettyFormat,
-        SerializerFeature.WriteNullListAsEmpty,
-        SerializerFeature.WriteNullStringAsEmpty,
-        SerializerFeature.WriteNullNumberAsZero
-    );
+    // 修改配置 将返回内容过滤
+    config.setSerializerFeatures(SerializerFeature.WriteMapNullValue,
+        SerializerFeature.PrettyFormat, SerializerFeature.WriteNullListAsEmpty,
+        SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullNumberAsZero);
     converter.setFastJsonConfig(config);
     List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
     supportedMediaTypes.add(MediaType.APPLICATION_JSON);
