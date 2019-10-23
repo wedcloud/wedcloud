@@ -17,6 +17,7 @@ public class UserInfoController {
   @Autowired
   private UserInfoMapper mapper;
 
+
   @ApiOperation("用户列表查询")
   @GetMapping("/userlist")
   public List<UserInfo> getUserInfoList() {
@@ -25,20 +26,20 @@ public class UserInfoController {
 
   @ApiOperation("新增用户")
   @PostMapping("/adduser")
-  public String addUserInfo(@RequestBody UserInfo userInfo){
+  public String addUserInfo(@RequestBody UserInfo userInfo) {
     return String.valueOf(mapper.insertIntoUserInfo(userInfo));
   }
 
   @ApiOperation("修改用户")
   @PutMapping("/updateuser/{id}")
-  public String updateUserInfo(@RequestBody UserInfo userInfo, @PathVariable("id") Integer id){
+  public String updateUserInfo(@RequestBody UserInfo userInfo, @PathVariable("id") Integer id) {
     userInfo.setId(id);
     return String.valueOf(mapper.updateUserInfo(userInfo));
   }
 
   @ApiOperation("删除用户")
   @DeleteMapping("/deleteuser/{id}")
-  public String deleteUserInfo(@PathVariable(value = "id") Integer id){
+  public String deleteUserInfo(@PathVariable(value = "id") Integer id) {
     return String.valueOf(mapper.deletedUserInfo(id));
   }
 }
