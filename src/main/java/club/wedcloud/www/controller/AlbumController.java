@@ -20,7 +20,7 @@ public class AlbumController {
   @Autowired
   private AlbumMapper mapper;
 
-  Logger logger = LoggerFactory.getLogger(this.getClass());
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
   @ApiOperation(value = "相簿列表查询")
