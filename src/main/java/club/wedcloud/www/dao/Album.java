@@ -1,6 +1,6 @@
 package club.wedcloud.www.dao;
 
-import io.swagger.annotations.Api;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(description = "相簿实体")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Album {
   @ApiModelProperty("相簿编号")
   private Integer id;

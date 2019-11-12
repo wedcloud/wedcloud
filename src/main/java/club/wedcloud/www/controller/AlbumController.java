@@ -27,7 +27,7 @@ public class AlbumController {
   @Autowired
   private AlbumMapper mapper;
 
-  Logger logger = LoggerFactory.getLogger(this.getClass());
+  private static final Logger logger = LoggerFactory.getLogger(AlbumController.class);
 
 
   @ApiOperation(value = "相簿列表查询")
@@ -53,6 +53,7 @@ public class AlbumController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("新增失败");
       }
     } catch (Exception e) {
+      logger.error(e.getMessage());
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("数据有误");
     }
   }

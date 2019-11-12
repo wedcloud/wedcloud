@@ -47,11 +47,11 @@ public class FileUpLoadController {
         try {
           file.transferTo(new File(path + "/" + file.getOriginalFilename()));
         } catch (Exception e) {
-          logger.error("Exception", e);
+          logger.error("FileUpLoadController fileUpLoad error:{}", e);
           return ResponseEntity.ok("异常");
         }
       }
     }
-    return ResponseEntity.ok("成功");
+    return ResponseEntity.ok("{\"code\":\"100000\",\"message\":\"成功\"}");
   }
 }
