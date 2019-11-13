@@ -42,7 +42,7 @@ public class AlbumService implements JdbcTemplateService<Album> {
 
   @Override
   public Integer updateInfo(Album t) {
-    // TODO Auto-generated method stub
+    String sql = "";
     return null;
   }
 
