@@ -1,20 +1,20 @@
 package club.wedcloud.www;
 
-import java.util.Calendar;
-import club.wedcloud.www.utils.TimeUtils;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 public class Test {
 
   public static void main(String[] args) {
-    Calendar rightNow = Calendar.getInstance(); // 子类对象
-    // 获取年
-    int year = rightNow.get(Calendar.YEAR);
-    // 获取月
-    int month = rightNow.get(Calendar.MONTH);
-    // 获取日
-    int date = rightNow.get(Calendar.DATE);
-    System.out.println(TimeUtils.getCalendar(Calendar.YEAR) + "/"
-        + (TimeUtils.getCalendar(Calendar.MONTH) + 1) + "/" + TimeUtils.getCalendar(Calendar.DATE));
+    Double d = 0.5;
+    String s =
+        "[{\"star\":0,\"max\":0.1,\"min\":0},{\"star\":2,\"max\":0.4,\"min\":0.1},{\"star\":3,\"max\":0.7,\"min\":0.4},{\"star\":4,\"max\":0.9,\"min\":0.7},{\"star\":5,\"max\":1,\"min\":0.9}]";
+    JSONArray arr = JSONArray.parseArray(s);
+    for (int i = 0; i < arr.size(); i++) {
+      JSONObject json = arr.getJSONObject(i);
+      if (d >= json.getDouble("min") && d < json.getDouble("max")) {
+        System.out.println(json.getInteger("star"));
+      }
+    }
   }
-
 }
