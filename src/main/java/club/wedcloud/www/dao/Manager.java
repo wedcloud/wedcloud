@@ -5,24 +5,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 
- * @author xuhb
- * @Description Album
- * @time 2019年7月17日
- */
 @Data
-@ApiModel(description = "相簿实体")
+@ApiModel(description = "用户实体")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Album {
-  @ApiModelProperty("相簿编号")
+public class Manager {
+  @ApiModelProperty("主键ID")
   private Integer id;
-  @ApiModelProperty("相簿名称")
-  private String albumName;
-  @ApiModelProperty("相簿显示图像")
-  private String imgurl;
-  @ApiModelProperty("相簿状态 0 启动 1停用")
-  private String status;
+  @ApiModelProperty("用户名")
+  private String userName;
+  @ApiModelProperty("手机号")
+  private String mobile;
+  @ApiModelProperty("状态")
+  private Integer status;
   @ApiModelProperty("创建时间")
   private String createdAt;
   @ApiModelProperty("修改时间")
