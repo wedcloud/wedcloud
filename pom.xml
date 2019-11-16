@@ -19,6 +19,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.github.qcloudsms</groupId>
+			<artifactId>qcloudsms</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+
+		<dependency>
 		    <groupId>it.sauronsoftware</groupId>
 		    <artifactId>jave</artifactId>
 		    <version>1.0.2</version>
