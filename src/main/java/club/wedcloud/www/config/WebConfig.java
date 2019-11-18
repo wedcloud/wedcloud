@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -69,9 +68,9 @@ public class WebConfig implements WebMvcConfigurer {
         .serializeValuesWith(
             RedisSerializationContext.SerializationPair.fromSerializer((valueSerializer()))); // 设置value序列化器
 
-    return RedisCacheManager
-        .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
-        .cacheDefaults(redisCacheConfiguration).build();
+    return new SpringRedisCacheManager(
+        RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
+        redisCacheConfiguration);
   }
 
   private RedisSerializer<String> keySerializer() {
