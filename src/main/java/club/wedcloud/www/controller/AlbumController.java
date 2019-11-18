@@ -1,10 +1,15 @@
 package club.wedcloud.www.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +25,11 @@ import club.wedcloud.www.utils.ResponseBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Api(tags = "相簿管理")
+@Slf4j
 @RestController
 @RequestMapping("/v1")
 public class AlbumController {
@@ -38,6 +47,7 @@ public class AlbumController {
   }
 
   @ApiOperation(value = "相簿详情查询")
+  @ApiImplicitParam(paramType = "path",name = "id",value = "相簿id",required = true)
   @GetMapping("/album/{id}")
   public ResponseEntity<ResponseBean> getAlbum(@PathVariable("id") Integer id) {
     return ResponseEntity.ok(ResponseBean.ok(service.getInfo(id)));
@@ -46,11 +56,19 @@ public class AlbumController {
   @ApiOperation(value = "新增相簿")
   @PostMapping("/album")
   @Transactional
-  public ResponseEntity<ResponseBean> insertAlbum(@RequestBody Album album) {
+  public ResponseEntity<ResponseBean> insertAlbum(@Validated @RequestBody Album album, BindingResult result) {
+    List<String> error = new ArrayList<String>();
+    if(result.hasErrors()){
+      List<ObjectError> list = result.getAllErrors();
+      for (ObjectError ob:list) {
+        error.add(ob.getDefaultMessage());
+      }
+      return ResponseEntity.ok(ResponseBean.fall(error));
+    }
     return ResponseEntity.ok(ResponseBean.ok(service.addInfo(album)));
   }
 
-  @ApiOperation(value = "修改相簿")
+  @ApiOperation(value = "修改相簿",notes = "根据id更新相簿")
   @PutMapping("/album/{id}")
   @Transactional
   public ResponseEntity<ResponseBean> updateAlbum(@PathVariable("id") Integer id,

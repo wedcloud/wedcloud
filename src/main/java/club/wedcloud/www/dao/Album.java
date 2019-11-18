@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NonNull;
+
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * 
@@ -17,11 +23,15 @@ import lombok.Data;
 public class Album {
   @ApiModelProperty("相簿编号")
   private Integer id;
+  @Size(min = 2,max = 10,message = "{album.albumName.size}")
   @ApiModelProperty("相簿名称")
   private String albumName;
   @ApiModelProperty("相簿显示图像")
+//  @NotNull(message = "{album.imgurl.notnull}")
   private String imgurl;
   @ApiModelProperty("相簿状态 0 启动 1停用")
+//  @DecimalMin(value = "0",message = "{album.status.size}")
+//  @DecimalMax(value = "1",message = "{album.status.size}")
   private String status;
   @ApiModelProperty("创建时间")
   private String createdAt;

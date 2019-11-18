@@ -3,6 +3,9 @@ package club.wedcloud.www.controller;
 import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import com.github.qcloudsms.SmsSingleSender;
+import com.github.qcloudsms.SmsSingleSenderResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +35,11 @@ public class NoteCodeController {
     String[] code = {getCode(mobile), "1"};
     // 将验证码放入redis缓存，并设置过期时间60s
     redisTemplate.opsForValue().set(mobile, code[0], 60, TimeUnit.SECONDS);
-    // SmsSingleSender smsSingleSender = new SmsSingleSender(tengxun.getAppid(),
-    // tengxun.getAppkey());
-    // SmsSingleSenderResult result = smsSingleSender.sendWithParam("86", mobile,
-    // tengxun.getTemplateid(), code, tengxun.getSmsSign(), "", "");
-    // return ResponseEntity.ok(ResponseBean.ok(result.errMsg));
-    return ResponseEntity.ok(ResponseBean.ok(code[0]));
+     SmsSingleSender smsSingleSender = new SmsSingleSender(tengxun.getAppid(),
+     tengxun.getAppkey());
+     SmsSingleSenderResult result = smsSingleSender.sendWithParam("86", mobile,
+     tengxun.getTemplateid(), code, tengxun.getSmsSign(), "", "");
+     return ResponseEntity.ok(ResponseBean.ok(result.errMsg));
   }
 
   @GetMapping("/checkCode")
