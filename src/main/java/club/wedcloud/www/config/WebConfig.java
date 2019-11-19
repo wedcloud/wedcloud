@@ -1,5 +1,6 @@
 package club.wedcloud.www.config;
 
+import club.wedcloud.www.interceptor.MyInterceptor;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -113,7 +114,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // TODO Auto-generated method stub
-
+        // addPathPatterns 表示拦截路径 excludePathPatterns表示排除拦截的路径
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
     }
 
     @Override
