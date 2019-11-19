@@ -20,14 +20,14 @@ public class EmailController {
     private EmailService service;
 
     @GetMapping("/sendMail")
-    public ResponseEntity<ResponseBean> sendMail(String from,String to,String cc,String subject ,String content){
-        service.sendMail(from,to,cc,subject,content);
+    public ResponseEntity<ResponseBean> sendMail(String from, String to, String cc, String subject, String content) {
+        service.sendMail(from, to, cc, subject, content);
         return ResponseEntity.ok(ResponseBean.ok(from));
     }
 
     @GetMapping("/sendMailFile")
-    public ResponseEntity<ResponseBean> sendMailFile(String from, String to, String cc, String subject , String content, MultipartFile file) throws MessagingException {
-        service.sendMail(from,to,cc,subject,content,file);
+    public ResponseEntity<ResponseBean> sendMailFile(String from, String to, String cc, String subject, String content, MultipartFile file) throws MessagingException {
+        service.sendMail(from, to, cc, subject, content, file);
         return ResponseEntity.ok(ResponseBean.ok(from));
     }
 }

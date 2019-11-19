@@ -12,14 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAccess {
 
-  private static final Logger logger = LoggerFactory.getLogger(LogAccess.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAccess.class);
 
-  @Pointcut("@annotation(club.wedcloud.www.aspect.annotation.LogAccess)")
-  public void logAccess() {}
+    @Pointcut("@annotation(club.wedcloud.www.aspect.annotation.LogAccess)")
+    public void logAccess() {
+    }
 
-  @Before("logAccess()")
-  public void doBefore(JoinPoint joinPoint) {
-    logger.info("before:" + joinPoint);
-  }
+    @Before("logAccess()")
+    public void doBefore(JoinPoint joinPoint) {
+        logger.info("before:" + joinPoint);
+    }
 
 }

@@ -13,8 +13,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan("club.wedcloud.www.mapper")
 public class WwwApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(WwwApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(WwwApplication.class, args);
+    }
 
 }
