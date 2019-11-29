@@ -14,7 +14,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class Test {
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
+
+  }
+
+  private static void getExcel() throws Exception {
     Workbook wk = new HSSFWorkbook();
     // 创建一个sheet页
     Sheet sh = wk.createSheet("第一个sheet页");
