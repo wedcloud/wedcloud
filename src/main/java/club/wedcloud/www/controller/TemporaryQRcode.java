@@ -35,11 +35,12 @@ public class TemporaryQRcode {
   private static String WX_ACCESS_TOKEN =
       "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
   private static final RestTemplate restTemplate = new RestTemplate();
-  private static String appid = "wx38ae61aa3cf77bb8";
-  private static String secret = "3c4ee046743c6ccf438cc26f6734c2d7";
+//  private static String appid = "wx38ae61aa3cf77bb8";
+//  private static String secret = "3c4ee046743c6ccf438cc26f6734c2d7";
+  private static String appid = "wx2f4773e87434787c";
+  private static String secret = "5de8ffd7d9c2af2f12c35abf03067df0";
 
-  private static String token =
-      "28_dvNXdINnpL_Wt2LKcYCfjqNRHPCc_BC_quJwfELfbmHnhncgdjWQyZQW1dVv4t1CitLJHfERm85eIFqhgT6kDp287LmEASPf0BWo4GHSidCLYYCTvrFSKg1EX9g7HBd7Up-7Y5Cj4UNxkNDRKNRdAJAFIM";
+  private static String token = null;
 
   @GetMapping("/flushToken")
   public ResponseEntity<ResponseBean> flushToken() {
@@ -79,7 +80,7 @@ public class TemporaryQRcode {
     if (result.getErrcode() == null || result.getErrcode() == 0) {
       return result.getAccess_token();
     } else {
-      log.error("获取access_toke失败：{}", JSON.toJSONString(result));
+      log.error("获取access_toke失败：{}", result);
       return null;
     }
   }
