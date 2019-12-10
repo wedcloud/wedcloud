@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/v1")
 public class WechatController {
   private static final String token = "123456";// 自己在微信测试平台设置的token
+
+  @GetMapping("/chat")
+  public ResponseEntity<JSONObject> getChat(String msg) throws Exception {
+    return WxMsg.txChat(msg);
+  }
 
   @PostMapping("/wx")
   public String msg(HttpServletRequest request, HttpServletResponse response) throws Exception {
