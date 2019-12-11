@@ -1,5 +1,6 @@
 package club.wedcloud.www.controller;
 
+import java.util.UUID;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,12 +30,12 @@ public class TemporaryQRcode {
   private static String WX_ACCESS_TOKEN =
       "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
   private static final RestTemplate restTemplate = new RestTemplate();
-  // private static String appid = "wx38ae61aa3cf77bb8";
-  // private static String secret = "3c4ee046743c6ccf438cc26f6734c2d7";
-  private static String appid = "wx2f4773e87434787c";
-  private static String secret = "5de8ffd7d9c2af2f12c35abf03067df0";
+  private static String appid = "wx38ae61aa3cf77bb8";
+  private static String secret = "3c4ee046743c6ccf438cc26f6734c2d7";
+  // private static String appid = "wx2f4773e87434787c";
+  // private static String secret = "5de8ffd7d9c2af2f12c35abf03067df0";
 
-  private static String token = null;
+  public static String token = null;
 
   @GetMapping("/flushToken")
   public ResponseEntity<ResponseBean> flushToken() {
@@ -49,8 +50,8 @@ public class TemporaryQRcode {
     requestUrl = requestUrl.replace("TOKEN", token);
 
     String jsonmsg =
-        "{\"expire_seconds\":%d,\"action_name\": \"QR_SCENE\",\"action_info\":{\"scene\":{\"scene_id\":%d}}}";
-    JSONObject json = JSON.parseObject(String.format(jsonmsg, 7200, 1234));
+        "{\"expire_seconds\":%d,\"action_name\": \"QR_STR_SCENE\",\"action_info\":{\"scene\":{\"scene_str\":\"%s\"}}}";
+    JSONObject json = JSON.parseObject(String.format(jsonmsg, 7200, UUID.randomUUID()));
     HttpHeaders headers = new HttpHeaders();
     MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
     headers.setContentType(type);
@@ -70,6 +71,7 @@ public class TemporaryQRcode {
 
     String url = String.format(WX_ACCESS_TOKEN, appid, secret);
     WxAccessTokenResult result = restTemplate.getForObject(url, WxAccessTokenResult.class);
+    log.debug("getAccessToken --> result -- >{}", result);
     if (result.getErrcode() == null || result.getErrcode() == 0) {
       return result.getAccess_token();
     } else {

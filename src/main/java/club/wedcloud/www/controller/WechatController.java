@@ -11,16 +11,15 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.alibaba.fastjson.JSONObject;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import club.wedcloud.www.async.AsyncTask;
 import club.wedcloud.www.utils.WxMsg;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +29,11 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/v1")
 public class WechatController {
-  private static final String token = "123456";// 自己在微信测试平台设置的token
 
-  @GetMapping("/chat")
-  public ResponseEntity<JSONObject> getChat(String msg) throws Exception {
-    return WxMsg.txChat(msg);
-  }
+  @Autowired
+  private AsyncTask asyncTask;
+
+  private static final String token = "HRGSmartSport";// 自己在微信测试平台设置的token
 
   @PostMapping("/wx")
   public String msg(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -65,7 +63,8 @@ public class WechatController {
       //
       // break;
       case "event":// 微信推送的消息
-
+        sb.append("");
+        asyncTask.eventMsg(map);
         break;
       default:
         sb.append("success");
