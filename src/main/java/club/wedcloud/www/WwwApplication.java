@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
@@ -13,6 +14,7 @@ import de.codecentric.boot.admin.server.config.EnableAdminServer;
 @EnableAsync
 @MapperScan("club.wedcloud.www.mapper")
 @EnableAdminServer
+@EnableScheduling
 public class WwwApplication {
 
   public static void main(String[] args) {
